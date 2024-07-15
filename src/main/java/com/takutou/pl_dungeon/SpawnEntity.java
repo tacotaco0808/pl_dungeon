@@ -20,6 +20,7 @@ import java.util.UUID;
 public class SpawnEntity implements CommandExecutor, Listener {
     private final Map<UUID, Zombie> zombieMap = new HashMap<>();
     private final Map<UUID, Location> deathLocations = new HashMap<>();
+    private final Map<UUID, Location> spawnLocations = new HashMap<>();
     private final String ZOMBIE_METADATA_KEY = "spawned_by_command";
 
     private final JavaPlugin plugin;
@@ -33,13 +34,24 @@ public class SpawnEntity implements CommandExecutor, Listener {
             //プレイヤーの位置情報等取得
             Player player = (Player) sender;
             Location playerLoc = player.getLocation();
-            //ゾンビをスポーン
+            //-----プレーンなゾンビをスポーン-----
             Zombie undeadZombie = (Zombie) player.getWorld().spawnEntity(playerLoc, EntityType.ZOMBIE);
             UUID undeadZombieID = undeadZombie.getUniqueId();
             //メタデータ付与(コマンドで出したゾンビと通常沸きのゾンビを区別させる)
             undeadZombie.setMetadata(ZOMBIE_METADATA_KEY, new FixedMetadataValue(plugin, true));
+            // 装備を取り除く・アイテムを拾わないように設定
+            undeadZombie.getEquipment().clear();
+            undeadZombie.setCanPickupItems(false);
+            // 大人のゾンビに設定
+            undeadZombie.setAdult();
+            // 村人ゾンビへの変換を防ぐ
+            undeadZombie.setConversionTime(-1);
+
+
             //ゾンビのUUIDを保存
             zombieMap.put(undeadZombieID,undeadZombie);
+            //spawn位置を保存
+            spawnLocations.put(undeadZombieID,playerLoc);
 
 
             player.sendMessage("ゾンビをスポーンしました！ID " + undeadZombieID);
@@ -56,19 +68,13 @@ public class SpawnEntity implements CommandExecutor, Listener {
             Zombie zombie = (Zombie) event.getEntity();
             //コマンドによって生成されたゾンビかどうか
             if(zombie.hasMetadata(ZOMBIE_METADATA_KEY)){
-                //ゾンビの死んだ場所を保存
                 UUID zombieId = zombie.getUniqueId();
-                Location deathLocation = zombie.getLocation();
-                deathLocations.put(zombieId, zombie.getLocation());
-                // ゾンビを倒したエンティティがプレイヤーかどうかを確認
+                // ドロップアイテムと経験値を削除
+                event.getDrops().clear();
+                event.setDroppedExp(0);
                 Player killer = zombie.getKiller();
-                if(killer != null){
+                if(killer != null){// ゾンビを倒したエンティティがプレイヤーかどうかを確認
                     killer.sendMessage("special zombie!!");
-                    // 座標情報を取得
-                    double x = deathLocation.getX();
-                    double y = deathLocation.getY();
-                    double z = deathLocation.getZ();
-                    killer.sendMessage("ID " + zombieId + "\n coordinates (X: " + x + ", Y: " + y + ", Z: " + z + ")!");
                 }
                 respawnZombie(zombieId);
             }
@@ -76,15 +82,26 @@ public class SpawnEntity implements CommandExecutor, Listener {
     }
     //特定のゾンビをリスポーン
     public void respawnZombie(UUID zombieId){
-        Location deathLocation = deathLocations.get(zombieId);
-        if(deathLocation != null){
-            // ゾンビをリスポーン
-            Zombie newZombie = (Zombie) deathLocation.getWorld().spawnEntity(deathLocation, EntityType.ZOMBIE);
+        Location spawnLocation = spawnLocations.get(zombieId);
+        if(spawnLocation != null){
+            // -----プレーンなゾンビをリスポーン-----
+            Zombie newZombie = (Zombie) spawnLocation.getWorld().spawnEntity(spawnLocation, EntityType.ZOMBIE);
             UUID newZombieId = newZombie.getUniqueId();
             // 新しいゾンビにメタデータを付与して識別
             newZombie.setMetadata(ZOMBIE_METADATA_KEY, new FixedMetadataValue(plugin, true));
-            // 元のゾンビのUUIDを削除
-            deathLocations.remove(zombieId);
+            // 装備を取り除く・アイテムを拾わないように設定
+            newZombie.getEquipment().clear();
+            newZombie.setCanPickupItems(false);
+            // 大人のゾンビに設定
+            newZombie.setAdult();
+            // 村人ゾンビへの変換を防ぐ
+            newZombie.setConversionTime(-1);
+            // ゾンビのUUIDを更新
+            zombieMap.remove(zombieId);
+            zombieMap.put(newZombieId,newZombie);
+            //　スポーン位置の引継ぎ
+            spawnLocations.remove(zombieId);
+            spawnLocations.put(newZombieId,spawnLocation);
         }
     }
 }
