@@ -56,12 +56,35 @@ public class SpawnEntity implements CommandExecutor, Listener {
             Zombie zombie = (Zombie) event.getEntity();
             //コマンドによって生成されたゾンビかどうか
             if(zombie.hasMetadata(ZOMBIE_METADATA_KEY)){
+                //ゾンビの死んだ場所を保存
+                UUID zombieId = zombie.getUniqueId();
+                Location deathLocation = zombie.getLocation();
+                deathLocations.put(zombieId, zombie.getLocation());
                 // ゾンビを倒したエンティティがプレイヤーかどうかを確認
                 Player killer = zombie.getKiller();
                 if(killer != null){
                     killer.sendMessage("special zombie!!");
+                    // 座標情報を取得
+                    double x = deathLocation.getX();
+                    double y = deathLocation.getY();
+                    double z = deathLocation.getZ();
+                    killer.sendMessage("ID " + zombieId + "\n coordinates (X: " + x + ", Y: " + y + ", Z: " + z + ")!");
                 }
+                respawnZombie(zombieId);
             }
+        }
+    }
+    //特定のゾンビをリスポーン
+    public void respawnZombie(UUID zombieId){
+        Location deathLocation = deathLocations.get(zombieId);
+        if(deathLocation != null){
+            // ゾンビをリスポーン
+            Zombie newZombie = (Zombie) deathLocation.getWorld().spawnEntity(deathLocation, EntityType.ZOMBIE);
+            UUID newZombieId = newZombie.getUniqueId();
+            // 新しいゾンビにメタデータを付与して識別
+            newZombie.setMetadata(ZOMBIE_METADATA_KEY, new FixedMetadataValue(plugin, true));
+            // 元のゾンビのUUIDを削除
+            deathLocations.remove(zombieId);
         }
     }
 }
