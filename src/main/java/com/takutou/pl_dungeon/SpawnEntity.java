@@ -1,6 +1,7 @@
 package com.takutou.pl_dungeon;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -12,6 +13,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -55,6 +57,20 @@ public class SpawnEntity implements CommandExecutor, Listener {
 
 
             player.sendMessage("ゾンビをスポーンしました！ID " + undeadZombieID);
+            // 定期的にゾンビが水に入っているかをチェックするタスクを開始
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    if (undeadZombie.isDead()) {
+                        cancel();
+                        return;
+                    }
+                    if (undeadZombie.getLocation().getBlock().getType() == Material.WATER || undeadZombie.getLocation().getBlock().getType() == Material.WATER_CAULDRON) {
+                        undeadZombie.damage(undeadZombie.getHealth());
+                        cancel();
+                    }
+                }
+            }.runTaskTimer(plugin, 0L, 20L); // 1秒ごとにチェック
             return true;
         } else {
             sender.sendMessage("このコマンドはプレイヤーのみ実行可能です。");
@@ -80,6 +96,7 @@ public class SpawnEntity implements CommandExecutor, Listener {
             }
         }
     }
+
     //特定のゾンビをリスポーン
     public void respawnZombie(UUID zombieId){
         Location spawnLocation = spawnLocations.get(zombieId);
@@ -102,6 +119,21 @@ public class SpawnEntity implements CommandExecutor, Listener {
             //　スポーン位置の引継ぎ
             spawnLocations.remove(zombieId);
             spawnLocations.put(newZombieId,spawnLocation);
+
+            // 定期的にゾンビが水に入っているかをチェックするタスクを開始
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    if (newZombie.isDead()) {
+                        cancel();
+                        return;
+                    }
+                    if (newZombie.getLocation().getBlock().getType() == Material.WATER || newZombie.getLocation().getBlock().getType() == Material.WATER_CAULDRON) {
+                        newZombie.damage(newZombie.getHealth());
+                        cancel();
+                    }
+                }
+            }.runTaskTimer(plugin, 0L, 20L); // 1秒ごとにチェック
         }
     }
 }
