@@ -1,4 +1,4 @@
-package com.takutou.pl_dungeon;
+package com.takutou.pl_dungeon.mob;
 
 
 import org.bukkit.ChatColor;

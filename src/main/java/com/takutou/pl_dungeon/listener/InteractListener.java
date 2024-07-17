@@ -1,6 +1,6 @@
 package com.takutou.pl_dungeon.listener;
 
-import com.takutou.pl_dungeon.DungeonZombie;
+import com.takutou.pl_dungeon.mob.DungeonZombie;
 import com.takutou.pl_dungeon.Pl_dungeon;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;

@@ -1,3 +1,6 @@
+com\takutou\pl_dungeon\command\DungeonZombieSpawnEgg.class
+com\takutou\pl_dungeon\listener\InteractListener.class
+com\takutou\pl_dungeon\mob\DungeonZombie.class
 com\takutou\pl_dungeon\SpawnEntity.class
 com\takutou\pl_dungeon\Pl_dungeon.class
 com\takutou\pl_dungeon\SpawnEntity$2.class
