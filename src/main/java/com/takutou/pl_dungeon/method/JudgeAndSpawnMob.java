@@ -1,8 +1,10 @@
 package com.takutou.pl_dungeon.method;
 
 import com.takutou.pl_dungeon.mob.DungeonZombie;
+import com.takutou.pl_dungeon.mob.TestZombie;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 /*
@@ -33,7 +35,8 @@ public class JudgeAndSpawnMob {
                 spawnLocation = e.getClickedBlock().getRelative(e.getBlockFace()).getLocation().add(0.5,0,0.5);
             }
             //モンスターをスポーン
-            new DungeonZombie(spawnLocation);
+            new TestZombie("aho",5,5);
+            TestZombie.spawn(spawnLocation,EntityType.ZOMBIE);
         }
     }
 }
