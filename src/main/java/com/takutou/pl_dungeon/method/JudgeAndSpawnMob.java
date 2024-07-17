@@ -38,9 +38,10 @@ public class JudgeAndSpawnMob {
                 spawnLocation = e.getClickedBlock().getRelative(e.getBlockFace()).getLocation().add(0.5,0,0.5);
             }
             //モンスターをスポーン
-            new TestZombie("aho",3,3,plugin);
-            TestZombie.spawn(spawnLocation,EntityType.ZOMBIE);
-            player.sendMessage("MonsterID:"+TestZombie.getMonsterID());
+            TestZombie testZombie = new TestZombie("aho",3,3,plugin);
+            testZombie.spawn(spawnLocation,EntityType.ZOMBIE);
+            player.sendMessage("MonsterID:"+testZombie.getMonsterID());
+
         }
     }
 }
