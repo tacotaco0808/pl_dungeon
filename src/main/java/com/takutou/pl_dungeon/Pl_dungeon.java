@@ -2,6 +2,7 @@ package com.takutou.pl_dungeon;
 
 import com.takutou.pl_dungeon.command.DungeonEntitySpawnEgg;
 import com.takutou.pl_dungeon.command.DungeonZombieSpawnEgg;
+import com.takutou.pl_dungeon.listener.EntityDeathListener;
 import com.takutou.pl_dungeon.listener.InteractListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -18,6 +19,8 @@ public final class Pl_dungeon extends JavaPlugin {
         // イベントリスナーの登録
         getServer().getPluginManager().registerEvents(spawnEntity, this);
         getServer().getPluginManager().registerEvents(new InteractListener(this),this);
+        getServer().getPluginManager().registerEvents(new EntityDeathListener(this),this);
+
     }
 
     @Override

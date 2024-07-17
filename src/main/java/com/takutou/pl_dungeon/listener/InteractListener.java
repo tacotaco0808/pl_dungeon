@@ -34,10 +34,10 @@ public class InteractListener implements Listener {
                     new DungeonZombie(spawnLocation);
                 }
                 //手に持っているアイテムを判定
-                JudgeAndSpawnMob zombieSpawn = new JudgeAndSpawnMob("zombie",e);
+                JudgeAndSpawnMob zombieSpawn = new JudgeAndSpawnMob("zombie",e,plugin);
                 zombieSpawn.judgeAndSpawn();
                 //手に持っているアイテムを判定
-                JudgeAndSpawnMob skeletonSpawn = new JudgeAndSpawnMob("skeleton",e);
+                JudgeAndSpawnMob skeletonSpawn = new JudgeAndSpawnMob("skeleton",e,plugin);
                 skeletonSpawn.judgeAndSpawn();
 
             }

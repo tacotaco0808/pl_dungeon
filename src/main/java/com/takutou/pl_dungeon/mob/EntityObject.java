@@ -5,6 +5,8 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Zombie;
+import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.plugin.Plugin;
 
 import java.util.UUID;
 
@@ -12,11 +14,14 @@ abstract class EntityObject {
     static String mobName;
     static int speed;
     static int maxHealth;
+    static  Plugin plugin;
     static UUID monsterID;
-    public EntityObject(String mobName, int speed, int maxHealth){
+
+    public EntityObject(String mobName, int speed, int maxHealth, Plugin plugin){
         EntityObject.mobName = mobName;
         EntityObject.speed = speed;
         EntityObject.maxHealth = maxHealth;
+        EntityObject.plugin = plugin;
 
     }
     public static void spawn(Location location, EntityType entityType){
@@ -27,6 +32,9 @@ abstract class EntityObject {
         monster.setCanPickupItems(false);
         setSpeed(monster,speed);
         setMaxHealth(monster, maxHealth);
+        //プラグインで作成したモンスターであることを提示
+        String MY_PLUGIN_MOB = "spawned_by_dungeonpl";
+        monster.setMetadata(MY_PLUGIN_MOB,new FixedMetadataValue(plugin,true));
         //UUID取得
         monsterID = monster.getUniqueId();
 

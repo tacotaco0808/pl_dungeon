@@ -7,16 +7,19 @@ import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.plugin.Plugin;
+
 /*
 * judgeAndSpawn: ここで指定したIDを持ったアイテムか判定する
 * */
 public class JudgeAndSpawnMob {
     String entityName ;
     PlayerInteractEvent e;
-
-    public JudgeAndSpawnMob(String entityName, PlayerInteractEvent event){
+    private final Plugin plugin;
+    public JudgeAndSpawnMob(String entityName, PlayerInteractEvent event, Plugin plugin){
         this.entityName = entityName;
         this.e = event;
+        this.plugin = plugin;
     }
     public void judgeAndSpawn(){
         Player player = e.getPlayer();
@@ -35,7 +38,7 @@ public class JudgeAndSpawnMob {
                 spawnLocation = e.getClickedBlock().getRelative(e.getBlockFace()).getLocation().add(0.5,0,0.5);
             }
             //モンスターをスポーン
-            new TestZombie("aho",3,3);
+            new TestZombie("aho",3,3,plugin);
             TestZombie.spawn(spawnLocation,EntityType.ZOMBIE);
             player.sendMessage("MonsterID:"+TestZombie.getMonsterID());
         }
