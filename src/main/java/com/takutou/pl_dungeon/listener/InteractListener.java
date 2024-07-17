@@ -1,5 +1,6 @@
 package com.takutou.pl_dungeon.listener;
 
+import com.takutou.pl_dungeon.method.JudgeAndSpawnMob;
 import com.takutou.pl_dungeon.mob.DungeonZombie;
 import com.takutou.pl_dungeon.Pl_dungeon;
 import org.bukkit.ChatColor;
@@ -20,8 +21,10 @@ public class InteractListener implements Listener {
     public void onInteract(PlayerInteractEvent e){
         if(e.getAction()== Action.RIGHT_CLICK_BLOCK){
             if(e.getHand() != null && e.getHand() == EquipmentSlot.HAND){
-                if(e.getItem() != null && e.getItem().getItemMeta() != null && e.getItem().getItemMeta().getLore() !=null
-                && e.getItem().getItemMeta().getLore().contains(ChatColor.GRAY + "spawn a dungeon zombie!")){
+                //手に持っているアイテムを判定
+                if(e.getItem() != null && e.getItem().getItemMeta() != null
+                    && e.getItem().getItemMeta().getLore() !=null
+                    && e.getItem().getItemMeta().getLore().contains(ChatColor.GRAY + "spawn a dungeon zombie!")){
                     Location spawnLocation;
                     if(e.getClickedBlock().isPassable()){
                         spawnLocation = e.getClickedBlock().getLocation().add(0.5,0,0.5);
@@ -30,6 +33,13 @@ public class InteractListener implements Listener {
                     }
                     new DungeonZombie(spawnLocation);
                 }
+                //手に持っているアイテムを判定
+                JudgeAndSpawnMob zombieSpawn = new JudgeAndSpawnMob("zombie",e);
+                zombieSpawn.judgeAndSpawn();
+                //手に持っているアイテムを判定
+                JudgeAndSpawnMob skeletonSpawn = new JudgeAndSpawnMob("skeleton",e);
+                skeletonSpawn.judgeAndSpawn();
+
             }
         }
     }

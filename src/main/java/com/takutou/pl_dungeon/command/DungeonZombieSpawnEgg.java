@@ -19,10 +19,12 @@ public class DungeonZombieSpawnEgg implements CommandExecutor {
         if (sender instanceof Player){
             Player player =(Player) sender;
             ItemStack egg = new ItemStack(Material.ZOMBIE_SPAWN_EGG,1);
+            //eggのメタデータ変更
             ItemMeta eggMeta = egg.getItemMeta();
             eggMeta.setDisplayName(ChatColor.RED + "DungeonZombie");
             eggMeta.setLore(Arrays.asList(ChatColor.GRAY+"Spawns a dungeon zombie"));
             egg.setItemMeta(eggMeta);
+            //item送信
             player.getInventory().addItem(egg);
         }
         return true;

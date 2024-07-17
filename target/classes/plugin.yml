@@ -7,3 +7,5 @@ commands:
     description: ゾンビをプレイヤーの視点の先にスポーンさせる
   givedungeonzombieegg:
     description: ダンジョンゾンビをスポーン
+  dungeon:
+    description: /dungeon <entity> <maxhealth>
