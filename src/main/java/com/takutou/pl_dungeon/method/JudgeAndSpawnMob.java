@@ -1,6 +1,7 @@
 package com.takutou.pl_dungeon.method;
 
 import com.takutou.pl_dungeon.mob.DungeonZombie;
+import com.takutou.pl_dungeon.mob.EntityObject;
 import com.takutou.pl_dungeon.mob.TestZombie;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -40,7 +41,8 @@ public class JudgeAndSpawnMob {
             //モンスターをスポーン
             TestZombie testZombie = new TestZombie("aho",3,3,plugin);
             testZombie.spawn(spawnLocation,EntityType.ZOMBIE);
-            player.sendMessage("MonsterID:"+testZombie.getMonsterID());
+            player.sendMessage("MonsterID:"+testZombie.getMonsterID()+"\n MonsterSum:"+ EntityObject.mobCounter);
+
 
         }
     }

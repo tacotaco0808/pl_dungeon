@@ -9,13 +9,13 @@ import org.bukkit.plugin.Plugin;
 
 import java.util.UUID;
 
-abstract class EntityObject {
+public abstract class EntityObject {
     private String mobName;
     private int speed;
     private int maxHealth;
     private  Plugin plugin;
     private UUID monsterID;
-
+    public static int mobCounter = 0;
     public EntityObject(String mobName, int speed, int maxHealth, Plugin plugin){
         this.mobName = mobName;
         this.speed = speed;
@@ -36,6 +36,7 @@ abstract class EntityObject {
         monster.setMetadata(MY_PLUGIN_MOB,new FixedMetadataValue(plugin,true));
         //UUID取得
         monsterID = monster.getUniqueId();
+        EntityObject.mobCounter++;
 
     }
     public UUID getMonsterID(){

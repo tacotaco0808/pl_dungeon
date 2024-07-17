@@ -1,6 +1,7 @@
 package com.takutou.pl_dungeon.listener;
 
 import com.takutou.pl_dungeon.Pl_dungeon;
+import com.takutou.pl_dungeon.mob.EntityObject;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -28,6 +29,7 @@ public class EntityDeathListener implements Listener {
                 if(killer != null ){
                     killer.sendMessage("wow!");
                 }
+                EntityObject.mobCounter--;
             }
         }
     }
