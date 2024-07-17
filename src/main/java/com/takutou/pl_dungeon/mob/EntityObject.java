@@ -13,13 +13,15 @@ public abstract class EntityObject {
     private String mobName;
     private int speed;
     private int maxHealth;
+    private int attackDamage;
     private  Plugin plugin;
     private UUID monsterID;
     public static int mobCounter = 0;
-    public EntityObject(String mobName, int speed, int maxHealth, Plugin plugin){
+    public EntityObject(String mobName, int speed, int maxHealth,int attackDamage, Plugin plugin){
         this.mobName = mobName;
         this.speed = speed;
         this.maxHealth = maxHealth;
+        this.attackDamage = attackDamage;
         this.plugin = plugin;
 
     }
@@ -31,6 +33,7 @@ public abstract class EntityObject {
         monster.setCanPickupItems(false);
         setSpeed(monster,speed);
         setMaxHealth(monster, maxHealth);
+        setAttackDamage(monster,attackDamage);
         //プラグインで作成したモンスターであることを提示
         String MY_PLUGIN_MOB = "spawned_by_dungeonpl";
         monster.setMetadata(MY_PLUGIN_MOB,new FixedMetadataValue(plugin,true));
@@ -52,6 +55,12 @@ public abstract class EntityObject {
         if (monster.getAttribute(Attribute.GENERIC_MAX_HEALTH) != null) {
             monster.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(maxHealth);
             monster.setHealth(maxHealth); // 体力を最大体力に設定
+        }
+    }
+    // 攻撃力を設定するメソッドを追加
+    public void setAttackDamage(Monster monster, int attackDamage) {
+        if (monster.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE) != null) {
+            monster.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(attackDamage);
         }
     }
 
