@@ -7,16 +7,23 @@ import org.bukkit.entity.Monster;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public abstract class EntityObject {
+    /**/
     private String mobName;
     private int speed;
     private int maxHealth;
     private int attackDamage;
     private  Plugin plugin;
     private UUID monsterID;
+    private  Location monsterSpawnLocation;
     public static int mobCounter = 0;
+
+
+
     public EntityObject(String mobName, int speed, int maxHealth,int attackDamage, Plugin plugin){
         this.mobName = mobName;
         this.speed = speed;
@@ -37,14 +44,21 @@ public abstract class EntityObject {
         //プラグインで作成したモンスターであることを提示
         String MY_PLUGIN_MOB = "spawned_by_dungeonpl";
         monster.setMetadata(MY_PLUGIN_MOB,new FixedMetadataValue(plugin,true));
-        //UUID取得
+        //UUIDとスポーン位置を保存
         monsterID = monster.getUniqueId();
+        monsterSpawnLocation = location;
+
         EntityObject.mobCounter++;
 
+    }
+    /*データ取得*/
+    public Location getRespawnLocation(){
+        return this.monsterSpawnLocation;
     }
     public UUID getMonsterID(){
         return this.monsterID;
     }
+    /*データセット*/
     public void setSpeed(Monster monster, int speed) {
         if (monster.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED) != null) {
             double baseSpeed = 0.01; // 基本の移動速度

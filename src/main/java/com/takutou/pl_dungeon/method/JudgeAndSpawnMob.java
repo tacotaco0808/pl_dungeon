@@ -10,6 +10,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.Plugin;
 
+import java.util.UUID;
+
 /*
 * judgeAndSpawn: ここで指定したIDを持ったアイテムか判定する
 * */
@@ -41,7 +43,9 @@ public class JudgeAndSpawnMob {
             //モンスターをスポーン
             TestZombie testZombie = new TestZombie("aho",3,3,1,plugin);
             testZombie.spawn(spawnLocation,EntityType.ZOMBIE);
-            player.sendMessage("MonsterID:"+testZombie.getMonsterID()+"\n MonsterSum:"+ EntityObject.mobCounter);
+            UUID monsterid = testZombie.getMonsterID();
+            player.sendMessage("MonsterID:"+monsterid+"\n MonsterSum:"+ EntityObject.mobCounter);
+            player.sendMessage("MonsterSpawn:"+testZombie.getRespawnLocation());
 
 
         }
