@@ -7,8 +7,7 @@ import org.bukkit.entity.Monster;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
 
-import java.util.HashMap;
-import java.util.Map;
+
 import java.util.UUID;
 
 public abstract class EntityObject {
@@ -52,7 +51,7 @@ public abstract class EntityObject {
 
     }
     /*データ取得*/
-    public Location getRespawnLocation(){
+    public Location getSpawnLocation(){
         return this.monsterSpawnLocation;
     }
     public UUID getMonsterID(){
