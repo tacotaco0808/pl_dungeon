@@ -8,5 +8,6 @@ com\takutou\pl_dungeon\method\JudgeAndSpawnMob.class
 com\takutou\pl_dungeon\mob\EntityObject.class
 com\takutou\pl_dungeon\command\DungeonZombieSpawnEgg.class
 com\takutou\pl_dungeon\command\DungeonEntitySpawnEgg.class
+com\takutou\pl_dungeon\method\MobManager.class
 com\takutou\pl_dungeon\SpawnEntity$2.class
 com\takutou\pl_dungeon\SpawnEntity$1.class

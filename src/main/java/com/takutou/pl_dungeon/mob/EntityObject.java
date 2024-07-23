@@ -18,6 +18,7 @@ public abstract class EntityObject {
     private int attackDamage;
     private  Plugin plugin;
     private UUID monsterID;
+    private EntityType entityType;
     private  Location monsterSpawnLocation;
     public static int mobCounter = 0;
 
@@ -31,7 +32,7 @@ public abstract class EntityObject {
         this.plugin = plugin;
 
     }
-    public void spawn(Location location, EntityType entityType){
+    public void spawn(Location location){
         Monster monster = (Monster) location.getWorld().spawnEntity(location,entityType);
         monster.setCustomName(mobName);
         monster.setCustomNameVisible(true);
@@ -58,6 +59,9 @@ public abstract class EntityObject {
         return this.monsterID;
     }
     /*データセット*/
+    public void setEntityType(EntityType entityType){
+        this.entityType = entityType;
+    }
     public void setSpeed(Monster monster, int speed) {
         if (monster.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED) != null) {
             double baseSpeed = 0.01; // 基本の移動速度

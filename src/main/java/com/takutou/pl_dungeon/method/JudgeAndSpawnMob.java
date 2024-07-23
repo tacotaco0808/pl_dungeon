@@ -41,7 +41,7 @@ public class JudgeAndSpawnMob {
             }
             //モンスターをスポーン
             TestZombie testZombie = new TestZombie("aho",3,3,1,plugin);
-            testZombie.spawn(spawnLocation,EntityType.ZOMBIE);
+            testZombie.spawn(spawnLocation);
             UUID monsterid = testZombie.getMonsterID();
             player.sendMessage("MonsterID:"+monsterid+"\n MonsterSum:"+ EntityObject.mobCounter);
             player.sendMessage("MonsterSpawn:"+testZombie.getSpawnLocation());
