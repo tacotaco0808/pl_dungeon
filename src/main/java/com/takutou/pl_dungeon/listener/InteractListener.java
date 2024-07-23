@@ -1,6 +1,7 @@
 package com.takutou.pl_dungeon.listener;
 
 import com.takutou.pl_dungeon.method.JudgeAndSpawnMob;
+import com.takutou.pl_dungeon.method.MobManager;
 import com.takutou.pl_dungeon.mob.DungeonZombie;
 import com.takutou.pl_dungeon.Pl_dungeon;
 import org.bukkit.ChatColor;
@@ -13,7 +14,9 @@ import org.bukkit.inventory.EquipmentSlot;
 
 public class InteractListener implements Listener {
     private final Pl_dungeon plugin;
-    public InteractListener(Pl_dungeon plugin){
+    private  MobManager mobManager;
+    public InteractListener(MobManager mobManager, Pl_dungeon plugin){
+        this.mobManager = mobManager;
         this.plugin = plugin;
     }
 
@@ -34,10 +37,10 @@ public class InteractListener implements Listener {
                     new DungeonZombie(spawnLocation);
                 }
                 //手に持っているアイテムを判定
-                JudgeAndSpawnMob zombieSpawn = new JudgeAndSpawnMob("zombie",e,plugin);
+                JudgeAndSpawnMob zombieSpawn = new JudgeAndSpawnMob(mobManager,"zombie",e,plugin);
                 zombieSpawn.judgeAndSpawn();
                 //手に持っているアイテムを判定
-                JudgeAndSpawnMob skeletonSpawn = new JudgeAndSpawnMob("skeleton",e,plugin);
+                JudgeAndSpawnMob skeletonSpawn = new JudgeAndSpawnMob(mobManager,"skeleton",e,plugin);
                 skeletonSpawn.judgeAndSpawn();
 
             }

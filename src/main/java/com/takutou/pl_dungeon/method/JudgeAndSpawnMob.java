@@ -15,10 +15,12 @@ import java.util.UUID;
 * judgeAndSpawn: ここで指定したIDを持ったアイテムか判定する
 * */
 public class JudgeAndSpawnMob {
+    MobManager mobManager;
     String entityName ;
     PlayerInteractEvent e;
     private final Plugin plugin;
-    public JudgeAndSpawnMob(String entityName, PlayerInteractEvent event, Plugin plugin){
+    public JudgeAndSpawnMob(MobManager mobManager,String entityName, PlayerInteractEvent event, Plugin plugin){
+        this.mobManager = mobManager;
         this.entityName = entityName;
         this.e = event;
         this.plugin = plugin;
@@ -40,11 +42,12 @@ public class JudgeAndSpawnMob {
                 spawnLocation = e.getClickedBlock().getRelative(e.getBlockFace()).getLocation().add(0.5,0,0.5);
             }
             //モンスターをスポーン
-            TestZombie testZombie = new TestZombie("aho",3,3,1,plugin);
-            testZombie.spawn(spawnLocation);
-            UUID monsterid = testZombie.getMonsterID();
-            player.sendMessage("MonsterID:"+monsterid+"\n MonsterSum:"+ EntityObject.mobCounter);
-            player.sendMessage("MonsterSpawn:"+testZombie.getSpawnLocation());
+            mobManager.spawnDungeonMob("testzombie","aiueo11",1,1,1,spawnLocation);
+            mobManager.spawnDungeonMob("testzombie","aiueo22",1,5,1,spawnLocation);
+            player.sendMessage(mobManager.getAllDungeonMobs().toString());
+//            UUID monsterid = testZombie.getMonsterID();
+//            player.sendMessage("MonsterID:"+monsterid+"\n MonsterSum:"+ EntityObject.mobCounter);
+//            player.sendMessage("MonsterSpawn:"+testZombie.getSpawnLocation());
 
 
         }
