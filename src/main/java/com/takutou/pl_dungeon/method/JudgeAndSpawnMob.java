@@ -41,9 +41,11 @@ public class JudgeAndSpawnMob {
             }else{
                 spawnLocation = e.getClickedBlock().getRelative(e.getBlockFace()).getLocation().add(0.5,0,0.5);
             }
-            //モンスターをスポーン
-            mobManager.spawnDungeonMob("testzombie","aiueo11",1,1,1,spawnLocation);
-            mobManager.spawnDungeonMob("testzombie","aiueo22",1,5,1,spawnLocation);
+            //リストの1番目のモンスターをスポーン
+            EntityObject spawnedMob = mobManager.getAllDungeonMobs().get(0);
+            spawnedMob.spawn(spawnLocation);
+
+
             player.sendMessage(mobManager.getAllDungeonMobs().toString());
 //            UUID monsterid = testZombie.getMonsterID();
 //            player.sendMessage("MonsterID:"+monsterid+"\n MonsterSum:"+ EntityObject.mobCounter);
