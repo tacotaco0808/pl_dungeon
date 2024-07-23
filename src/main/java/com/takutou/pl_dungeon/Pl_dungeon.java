@@ -1,5 +1,6 @@
 package com.takutou.pl_dungeon;
 
+import com.takutou.pl_dungeon.command.CreateDungeonMob;
 import com.takutou.pl_dungeon.command.DungeonEntitySpawnEgg;
 import com.takutou.pl_dungeon.command.DungeonZombieSpawnEgg;
 import com.takutou.pl_dungeon.listener.EntityDeathListener;
@@ -20,6 +21,7 @@ public final class Pl_dungeon extends JavaPlugin {
         this.getCommand("spawnzombie").setExecutor(spawnEntity);
         this.getCommand("givedungeonzombieegg").setExecutor(new DungeonZombieSpawnEgg());
         this.getCommand("dungeon").setExecutor(new DungeonEntitySpawnEgg());
+        this.getCommand("dungeoncreate").setExecutor(new CreateDungeonMob(mobManager));
         // イベントリスナーの登録
         getServer().getPluginManager().registerEvents(spawnEntity, this);
         getServer().getPluginManager().registerEvents(new InteractListener(mobManager,this),this);

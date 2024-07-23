@@ -9,3 +9,5 @@ commands:
     description: ダンジョンゾンビをスポーン
   dungeon:
     description: /dungeon <entity> <maxhealth>
+  dungeoncreate:
+    description: /dungeoncreate mobName speed maxHealth attackDamage
