@@ -27,7 +27,7 @@ public class EntityDeathListener implements Listener {
                 e.setDroppedExp(0);
                 Player killer = monster.getKiller();
                 if(killer != null ){
-                    killer.sendMessage("wow!");
+                    killer.sendMessage("killed monsterid:"+monsterID);
                 }
                 EntityObject.mobCounter--;
             }

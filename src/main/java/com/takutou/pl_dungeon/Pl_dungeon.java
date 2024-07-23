@@ -4,10 +4,11 @@ import com.takutou.pl_dungeon.command.DungeonEntitySpawnEgg;
 import com.takutou.pl_dungeon.command.DungeonZombieSpawnEgg;
 import com.takutou.pl_dungeon.listener.EntityDeathListener;
 import com.takutou.pl_dungeon.listener.InteractListener;
+import com.takutou.pl_dungeon.mob.TestZombie;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Pl_dungeon extends JavaPlugin {
-
+    TestZombie globalZombie = new TestZombie("aiueo",1,1,1,this);
     @Override
     public void onEnable() {
         // Plugin startup logic
@@ -27,4 +28,6 @@ public final class Pl_dungeon extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic
     }
+
+
 }
