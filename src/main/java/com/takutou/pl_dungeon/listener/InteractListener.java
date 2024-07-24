@@ -4,9 +4,11 @@ import com.takutou.pl_dungeon.method.JudgeAndSpawnMob;
 import com.takutou.pl_dungeon.method.MobManager;
 import com.takutou.pl_dungeon.mob.DungeonZombie;
 import com.takutou.pl_dungeon.Pl_dungeon;
+import com.takutou.pl_dungeon.mob.EntityObject;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -49,7 +51,21 @@ public class InteractListener implements Listener {
                     ItemStack handItem = e.getItem();
                     String customID = getCustomID(handItem);
                     if(customID != null && customID.equals("123")){
+                        Player player = e.getPlayer();
                         e.getPlayer().sendMessage("123!!!!");
+                        //標準のスポーンエッグの機能を無効化
+                        e.setCancelled(true);
+                        //右クリック先のブロックにスポーン位置を設定
+                        Location spawnLocation;
+                        if(e.getClickedBlock().isPassable()){
+                            spawnLocation = e.getClickedBlock().getLocation().add(0.5,0,0.5);
+                        }else{
+                            spawnLocation = e.getClickedBlock().getRelative(e.getBlockFace()).getLocation().add(0.5,0,0.5);
+                        }
+                        //リストの1番目のモンスターをスポーン
+                        EntityObject spawnedMob = mobManager.getAllDungeonMobs().get(1);
+                        spawnedMob.spawn(spawnLocation);
+                        player.sendMessage(mobManager.getAllDungeonMobs().toString());
                     }
                 }
 
