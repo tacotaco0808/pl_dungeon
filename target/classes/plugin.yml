@@ -8,6 +8,6 @@ commands:
   givedungeonzombieegg:
     description: ダンジョンゾンビをスポーン
   dungeon:
-    description: /dungeon <entity> <maxhealth>
+    description: /dungeon <num>
   dungeoncreate:
     description: /dungeoncreate mobName speed maxHealth attackDamage

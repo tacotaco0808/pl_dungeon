@@ -17,29 +17,18 @@ public class DungeonEntitySpawnEgg implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command,String label,String[] args){
-        if(args.length < 2){
-            sender.sendMessage("/dungeon <entity> <maxhealth>");
+        if(args.length != 1){
+            sender.sendMessage("/dungeon num");
             return true;
         }
         if(sender instanceof Player){
             Player player = (Player) sender;
-            String entityName = args[0];
-            Material entityTpe ;
-            //バリデーション
-            if(entityName.equalsIgnoreCase("zombie")){
-                entityTpe = Material.ZOMBIE_SPAWN_EGG;
-            }else if(entityName.equalsIgnoreCase("skeleton")){
-                entityTpe = Material.SKELETON_SPAWN_EGG;
-            }else{
-                sender.sendMessage(ChatColor.RED + "error:例 zombie,skeleton");
-                return true;
-            }
+            int entityNum = Integer.parseInt(args[0]);
 
-            ItemStack egg = new ItemStack(entityTpe,1);
-
+            ItemStack egg = new ItemStack(Material.ZOMBIE_SPAWN_EGG,1);
             ItemMeta eggMeta = egg.getItemMeta();
-            eggMeta.setDisplayName(ChatColor.GRAY + "Dungeon:" + entityName);
-            eggMeta.setLore(Arrays.asList(ChatColor.BLUE + "Spawns a dungeon:" + entityName));
+            eggMeta.setDisplayName(ChatColor.GRAY + "Dungeon:" + entityNum);
+            eggMeta.setLore(Arrays.asList(ChatColor.BLUE + "Spawns a dungeon mob" + "num:"+entityNum));
             egg.setItemMeta(eggMeta);
 
             player.getInventory().addItem(egg);

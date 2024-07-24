@@ -37,11 +37,10 @@ public class InteractListener implements Listener {
                     new DungeonZombie(spawnLocation);
                 }
                 //手に持っているアイテムを判定
-                JudgeAndSpawnMob zombieSpawn = new JudgeAndSpawnMob(mobManager,"zombie",e,plugin);
+                //ここをワイルドカードにする必要がある。現時点だとエッグ:1のものしか判定されていない
+                JudgeAndSpawnMob zombieSpawn = new JudgeAndSpawnMob(mobManager,1,e,plugin);
                 zombieSpawn.judgeAndSpawn();
-                //手に持っているアイテムを判定
-                JudgeAndSpawnMob skeletonSpawn = new JudgeAndSpawnMob(mobManager,"skeleton",e,plugin);
-                skeletonSpawn.judgeAndSpawn();
+
 
             }
         }
