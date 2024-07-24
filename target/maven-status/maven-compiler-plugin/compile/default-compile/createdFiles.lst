@@ -11,4 +11,5 @@ com\takutou\pl_dungeon\command\DungeonEntitySpawnEgg.class
 com\takutou\pl_dungeon\method\MobManager.class
 com\takutou\pl_dungeon\command\CreateDungeonMob.class
 com\takutou\pl_dungeon\SpawnEntity$2.class
+com\takutou\pl_dungeon\method\CustomItem.class
 com\takutou\pl_dungeon\SpawnEntity$1.class
