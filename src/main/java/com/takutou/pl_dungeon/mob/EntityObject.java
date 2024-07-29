@@ -8,6 +8,8 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
 
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public abstract class EntityObject {
@@ -57,6 +59,14 @@ public abstract class EntityObject {
     }
     public UUID getMonsterID(){
         return this.monsterID;
+    }
+    public Map<String,Object> getMonsterData(){//基本のステータスを取得
+        Map<String,Object> entityData = new HashMap<>();
+        entityData.put("mobName",mobName);
+        entityData.put("speed", speed);
+        entityData.put("maxHealth", maxHealth);
+        entityData.put("attackDamage", attackDamage);
+        return entityData;
     }
     /*データセット*/
     public void setEntityType(EntityType entityType){

@@ -18,6 +18,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
+import java.util.Map;
+
 public class InteractListener implements Listener {
     private final Pl_dungeon plugin;
     private  MobManager mobManager;
@@ -68,7 +70,21 @@ public class InteractListener implements Listener {
                             EntityObject spawnedMob = mobManager.getAllDungeonMobs().get(monsterIndex);
                             spawnedMob.spawn(spawnLocation);
                             player.sendMessage(mobManager.getAllDungeonMobs().toString());
+                            /*スポーンメッセージを表示*/
+                            Map<String,Object> spawnedMobData = spawnedMob.getMonsterData();
+                            String mobName = (String) spawnedMobData.get("mobName");
+                            int mobSpeed = (int) spawnedMobData.get("speed");
+                            int mobMaxHealth = (int) spawnedMobData.get("maxHealth");
+                            int mobAttackDamage = (int) spawnedMobData.get("attackDamage");
+
+
                             e.getPlayer().sendMessage(ChatColor.GREEN + "customID-"+customID+"のモンスターをスポーンしました");
+                            e.getPlayer().sendMessage(ChatColor.GREEN + "----------");
+                            e.getPlayer().sendMessage(ChatColor.GREEN + "名前　　:"+mobName);
+                            e.getPlayer().sendMessage(ChatColor.GREEN + "スピード:"+mobSpeed);
+                            e.getPlayer().sendMessage(ChatColor.GREEN + "体力　　:"+mobMaxHealth);
+                            e.getPlayer().sendMessage(ChatColor.GREEN + "攻撃力　:"+mobAttackDamage);
+                            e.getPlayer().sendMessage(ChatColor.GREEN + "----------");
 
                         }else{//エラー
                             player.sendMessage(ChatColor.RED + "Error:CustomID-" +monsterIndex+"のモンスターはリストに存在しません");
