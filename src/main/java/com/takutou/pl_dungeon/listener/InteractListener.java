@@ -78,13 +78,15 @@ public class InteractListener implements Listener {
                             int mobAttackDamage = (int) spawnedMobData.get("attackDamage");
 
 
-                            e.getPlayer().sendMessage(ChatColor.GREEN + "customID-"+customID+"のモンスターをスポーンしました");
-                            e.getPlayer().sendMessage(ChatColor.GREEN + "----------");
-                            e.getPlayer().sendMessage(ChatColor.GREEN + "名前　　:"+mobName);
-                            e.getPlayer().sendMessage(ChatColor.GREEN + "スピード:"+mobSpeed);
-                            e.getPlayer().sendMessage(ChatColor.GREEN + "体力　　:"+mobMaxHealth);
-                            e.getPlayer().sendMessage(ChatColor.GREEN + "攻撃力　:"+mobAttackDamage);
-                            e.getPlayer().sendMessage(ChatColor.GREEN + "----------");
+                            e.getPlayer().sendMessage(
+                            ChatColor.GREEN + "customID-" + customID + "のモンスターをスポーンしました\n" +
+                                ChatColor.GREEN + "----------\n" +
+                                ChatColor.GREEN + "名前　　:" + mobName + "\n" +
+                                ChatColor.GREEN + "スピード:" + mobSpeed + "\n" +
+                                ChatColor.GREEN + "体力　　:" + mobMaxHealth + "\n" +
+                                ChatColor.GREEN + "攻撃力　:" + mobAttackDamage + "\n" +
+                                ChatColor.GREEN + "----------"
+                            );
 
                         }else{//エラー
                             player.sendMessage(ChatColor.RED + "Error:CustomID-" +monsterIndex+"のモンスターはリストに存在しません");
