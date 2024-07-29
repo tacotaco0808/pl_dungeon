@@ -50,9 +50,8 @@ public class InteractListener implements Listener {
                 if(e.getItem() != null){
                     ItemStack handItem = e.getItem();
                     String customID = getCustomID(handItem);
-                    if(customID != null && customID.equals("123")){
+                    if(customID != null ){
                         Player player = e.getPlayer();
-                        e.getPlayer().sendMessage("123!!!!");
                         //標準のスポーンエッグの機能を無効化
                         e.setCancelled(true);
                         //右クリック先のブロックにスポーン位置を設定
@@ -62,10 +61,20 @@ public class InteractListener implements Listener {
                         }else{
                             spawnLocation = e.getClickedBlock().getRelative(e.getBlockFace()).getLocation().add(0.5,0,0.5);
                         }
-                        //リストの1番目のモンスターをスポーン
-                        EntityObject spawnedMob = mobManager.getAllDungeonMobs().get(1);
-                        spawnedMob.spawn(spawnLocation);
-                        player.sendMessage(mobManager.getAllDungeonMobs().toString());
+                        //リストにいるモンスターIDかチェック
+                        int monsterIndex = Integer.parseInt(customID);
+                        if(0 <= monsterIndex && monsterIndex < mobManager.getAllDungeonMobs().size()){
+                            //リストのn番目のモンスターをスポーン
+                            EntityObject spawnedMob = mobManager.getAllDungeonMobs().get(monsterIndex);
+                            spawnedMob.spawn(spawnLocation);
+                            player.sendMessage(mobManager.getAllDungeonMobs().toString());
+                            e.getPlayer().sendMessage(ChatColor.GREEN + "customID-"+customID+"のモンスターをスポーンしました");
+
+                        }else{//エラー
+                            player.sendMessage(ChatColor.RED + "Error:CustomID-" +monsterIndex+"のモンスターはリストに存在しません");
+
+                        }
+
                     }
                 }
 
