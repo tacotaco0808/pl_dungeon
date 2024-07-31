@@ -53,8 +53,27 @@ public abstract class EntityObject {
         EntityObject.mobCounter++;
 
     }
+
     /*データ取得*/
-    public Location getSpawnLocation(){
+    public String getMobName() {
+        return mobName;
+    }
+    public int getSpeed() {
+        return speed;
+    }
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+    public int getAttackDamage() {
+        return attackDamage;
+    }
+    public Plugin getPlugin() {
+        return plugin;
+    }
+    public EntityType getEntityType() {
+        return entityType;
+    }
+    public Location getMonsterSpawnLocation(){
         return this.monsterSpawnLocation;
     }
     public UUID getMonsterID(){
@@ -68,9 +87,16 @@ public abstract class EntityObject {
         entityData.put("attackDamage", attackDamage);
         return entityData;
     }
+
     /*データセット*/
     public void setEntityType(EntityType entityType){
         this.entityType = entityType;
+    }
+    public void setMonsterID(UUID monsterID) {
+        this.monsterID = monsterID;
+    }
+    public void setMonsterSpawnLocation(Location monsterSpawnLocation) {
+        this.monsterSpawnLocation = monsterSpawnLocation;
     }
     public void setSpeed(Monster monster, int speed) {
         if (monster.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED) != null) {

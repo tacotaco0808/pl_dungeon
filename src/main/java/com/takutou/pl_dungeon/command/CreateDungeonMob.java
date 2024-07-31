@@ -1,6 +1,7 @@
 package com.takutou.pl_dungeon.command;
 
 import com.takutou.pl_dungeon.method.MobManager;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -17,25 +18,29 @@ public class CreateDungeonMob implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
-            if (args.length != 4) {
-                sender.sendMessage("Usage: /dungeoncreate <mobName> <speed> <maxHealth> <attackDamage>");
+            if (args.length != 5) {
+                sender.sendMessage("Usage: /dungeoncreate <mobType> <mobName> <speed> <maxHealth> <attackDamage>");
                 return false;
             }
             /*プレイヤーの位置に見本を召喚*/
             Player player = (Player) sender;
             Location location = player.getLocation();
             try {
-                String mobName = args[0];
-                int speed = Integer.parseInt(args[1]);
-                int maxHealth = Integer.parseInt(args[2]);
-                int attackDamage = Integer.parseInt(args[3]);
+                String mobType = args[0];
+                String mobName = args[1];
+                int speed = Integer.parseInt(args[2]);
+                int maxHealth = Integer.parseInt(args[3]);
+                int attackDamage = Integer.parseInt(args[4]);
 
-                mobManager.spawnDungeonMob("testzombie", mobName, speed, maxHealth, attackDamage, location);
+                mobManager.spawnDungeonMob(mobType, mobName, speed, maxHealth, attackDamage, location, player);
                 player.sendMessage("Mob spawned successfully!");
             } catch (NumberFormatException e) {
                 player.sendMessage("Speed, maxHealth, and attackDamage must be integers.");
                 return false;
-            } catch (Exception e) {
+            }catch (IllegalArgumentException e){
+                player.sendMessage(ChatColor.RED+ "Error:\n"+ e.getMessage());
+                return false;
+            }catch (Exception e) {
                 player.sendMessage("An error occurred while spawning the mob.");
                 e.printStackTrace();
                 return false;

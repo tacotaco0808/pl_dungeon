@@ -33,18 +33,6 @@ public class InteractListener implements Listener {
         if(e.getAction()== Action.RIGHT_CLICK_BLOCK){
             if(e.getHand() != null && e.getHand() == EquipmentSlot.HAND){
                 //手に持っているアイテムを判定
-                if(e.getItem() != null && e.getItem().getItemMeta() != null
-                    && e.getItem().getItemMeta().getLore() !=null
-                    && e.getItem().getItemMeta().getLore().contains(ChatColor.GRAY + "spawn a dungeon zombie!")){
-                    Location spawnLocation;
-                    if(e.getClickedBlock().isPassable()){
-                        spawnLocation = e.getClickedBlock().getLocation().add(0.5,0,0.5);
-                    }else{
-                        spawnLocation = e.getClickedBlock().getRelative(e.getBlockFace()).getLocation().add(0.5,0,0.5);
-                    }
-                    new DungeonZombie(spawnLocation);
-                }
-                //手に持っているアイテムを判定
                 //ここをワイルドカードにする必要がある。現時点だとエッグ:1のものしか判定されていない
                 JudgeAndSpawnMob zombieSpawn = new JudgeAndSpawnMob(mobManager,1,e,plugin);
                 zombieSpawn.judgeAndSpawn();
