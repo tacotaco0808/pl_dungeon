@@ -25,7 +25,7 @@ public final class Pl_dungeon extends JavaPlugin {
         // イベントリスナーの登録
         getServer().getPluginManager().registerEvents(spawnEntity, this);
         getServer().getPluginManager().registerEvents(new InteractListener(mobManager,this),this);
-        getServer().getPluginManager().registerEvents(new EntityDeathListener(this),this);
+        getServer().getPluginManager().registerEvents(new EntityDeathListener(mobManager,this),this);
 
     }
 
