@@ -1,15 +1,12 @@
 package com.takutou.pl_dungeon.method;
 
 import com.takutou.pl_dungeon.mob.EntityObject;
-import com.takutou.pl_dungeon.mob.TestZombie;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.Plugin;
 
-import java.util.UUID;
 
 /*
 * judgeAndSpawn: ここで指定したIDを持ったアイテムか判定する

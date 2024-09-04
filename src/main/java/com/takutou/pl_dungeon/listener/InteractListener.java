@@ -2,7 +2,6 @@ package com.takutou.pl_dungeon.listener;
 
 import com.takutou.pl_dungeon.method.JudgeAndSpawnMob;
 import com.takutou.pl_dungeon.method.MobManager;
-import com.takutou.pl_dungeon.mob.DungeonZombie;
 import com.takutou.pl_dungeon.Pl_dungeon;
 import com.takutou.pl_dungeon.mob.EntityObject;
 import org.bukkit.ChatColor;
