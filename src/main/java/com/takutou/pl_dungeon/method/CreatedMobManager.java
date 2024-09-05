@@ -1,13 +1,13 @@
 package com.takutou.pl_dungeon.method;
 
 import com.takutou.pl_dungeon.mob.EntityObject;
-import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,10 +15,12 @@ import java.util.Map;
 
 public class CreatedMobManager {
     private Plugin plugin;
-    private List<EntityObject> createdDungeonMobs = new ArrayList<>();
-    private Map<String, MobFactory> createdMobFactoryMap;
+    private List<EntityObject> createdDungeonMobs = new ArrayList<>();//作成したMOBが入るリスト
+    private Map<String, MobFactory> createdMobFactoryMap;//ファクトリクラスのマップ
+    //ファイル読み込み
     private File mobDataFile;
     private FileConfiguration mobDataConfig;
+    private SecureRandom random = new SecureRandom();//ランダム生成
     public CreatedMobManager(Plugin plugin){
         this.plugin = plugin;
         // モブタイプに対応するファクトリクラスをマッピング
@@ -30,14 +32,26 @@ public class CreatedMobManager {
         this.mobDataConfig = YamlConfiguration.loadConfiguration(mobDataFile);
         loadMobs();
     }
+    // ランダムな一意のキーを生成するメソッド
+    private String generateUniqueKey() {
+        // 16進数の文字列でランダムに生成（他にも好きな生成方法を使用可能）
+        byte[] bytes = new byte[8];  // 8バイトで64ビットのランダムな値
+        random.nextBytes(bytes);
+        StringBuilder keyBuilder = new StringBuilder();
+        for (byte b : bytes) {
+            keyBuilder.append(String.format("%02x", b)); // 16進数で表現
+        }
+        return keyBuilder.toString();
+    }
+    //リストに作成したモブをプッシュ
     public void pushCreatedDungeonMob(MobFactory factory, String mobName, int speed, int maxHealth, int attackDamage){
         EntityObject mob = factory.createMob(mobName,speed,maxHealth,attackDamage,plugin);
         createdDungeonMobs.add(mob);//リストに追加
-        this.saveMobData(mob);//ファイルに保存
+        this.saveMobData(mob,generateUniqueKey());//ファイルに保存
     }
     /*file loading*/
-    private void saveMobData(EntityObject mob) {
-        String path = "mobs." + mob.getMonsterID().toString();
+    private void saveMobData(EntityObject mob,String mobKey) {
+        String path = "mobs." + mobKey;
         mobDataConfig.set(path + ".type", mob.getClass().getSimpleName().toLowerCase());
         mobDataConfig.set(path + ".name", mob.getMobName());
         mobDataConfig.set(path + ".speed", mob.getSpeed());
