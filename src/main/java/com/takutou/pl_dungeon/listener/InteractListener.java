@@ -1,5 +1,6 @@
 package com.takutou.pl_dungeon.listener;
 
+import com.takutou.pl_dungeon.method.CreatedMobManager;
 import com.takutou.pl_dungeon.method.JudgeAndSpawnMob;
 import com.takutou.pl_dungeon.method.MobManager;
 import com.takutou.pl_dungeon.Pl_dungeon;
@@ -21,9 +22,9 @@ import java.util.Map;
 
 public class InteractListener implements Listener {
     private final Pl_dungeon plugin;
-    private  MobManager mobManager;
-    public InteractListener(MobManager mobManager, Pl_dungeon plugin){
-        this.mobManager = mobManager;
+    private CreatedMobManager createdMobManager;
+    public InteractListener(CreatedMobManager createdMobManager, Pl_dungeon plugin){
+        this.createdMobManager = createdMobManager;
         this.plugin = plugin;
     }
 
@@ -33,8 +34,8 @@ public class InteractListener implements Listener {
             if(e.getHand() != null && e.getHand() == EquipmentSlot.HAND){
                 //手に持っているアイテムを判定
                 //ここをワイルドカードにする必要がある。現時点だとエッグ:1のものしか判定されていない
-                JudgeAndSpawnMob zombieSpawn = new JudgeAndSpawnMob(mobManager,1,e,plugin);
-                zombieSpawn.judgeAndSpawn();
+//                JudgeAndSpawnMob zombieSpawn = new JudgeAndSpawnMob(mobManager,1,e,plugin);
+//                zombieSpawn.judgeAndSpawn();
                 //customIDでアイテムを判定
                 if(e.getItem() != null){
                     ItemStack handItem = e.getItem();
@@ -52,11 +53,11 @@ public class InteractListener implements Listener {
                         }
                         //リストにいるモンスターIDかチェック
                         int monsterIndex = Integer.parseInt(customID);
-                        if(0 <= monsterIndex && monsterIndex < mobManager.getAllDungeonMobs().size()){
+                        if(0 <= monsterIndex && monsterIndex < createdMobManager.getAllDungeonMobs().size()){
                             //リストのn番目のモンスターをスポーン
-                            EntityObject spawnedMob = mobManager.getAllDungeonMobs().get(monsterIndex);
+                            EntityObject spawnedMob = createdMobManager.getAllDungeonMobs().get(monsterIndex);
                             spawnedMob.spawn(spawnLocation);
-                            player.sendMessage(mobManager.getAllDungeonMobs().toString());
+                            player.sendMessage(createdMobManager.getAllDungeonMobs().toString());
                             /*スポーンメッセージを表示*/
                             Map<String,Object> spawnedMobData = spawnedMob.getMonsterData();
                             String mobName = (String) spawnedMobData.get("mobName");
