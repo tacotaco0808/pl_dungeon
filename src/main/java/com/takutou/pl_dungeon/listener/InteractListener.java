@@ -61,6 +61,7 @@ public class InteractListener implements Listener {
                             /*スポーンメッセージを表示*/
                             Map<String,Object> spawnedMobData = spawnedMob.getMonsterData();
                             String mobName = (String) spawnedMobData.get("mobName");
+                            String mobType = spawnedMob.getClass().getSimpleName().toLowerCase();
                             int mobSpeed = (int) spawnedMobData.get("speed");
                             int mobMaxHealth = (int) spawnedMobData.get("maxHealth");
                             int mobAttackDamage = (int) spawnedMobData.get("attackDamage");
@@ -69,6 +70,7 @@ public class InteractListener implements Listener {
                             e.getPlayer().sendMessage(
                             ChatColor.GREEN + "customID-" + customID + "のモンスターをスポーンしました\n" +
                                 ChatColor.GREEN + "----------\n" +
+                                ChatColor.GREEN + "MOBタイプ:" + mobType + "\n" +
                                 ChatColor.GREEN + "名前　　:" + mobName + "\n" +
                                 ChatColor.GREEN + "スピード:" + mobSpeed + "\n" +
                                 ChatColor.GREEN + "体力　　:" + mobMaxHealth + "\n" +
