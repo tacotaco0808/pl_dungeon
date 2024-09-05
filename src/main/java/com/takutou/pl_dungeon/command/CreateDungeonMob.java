@@ -1,9 +1,6 @@
 package com.takutou.pl_dungeon.command;
 
-import com.takutou.pl_dungeon.method.DungeonZombieFactory;
-import com.takutou.pl_dungeon.method.MobFactory;
-import com.takutou.pl_dungeon.method.MobManager;
-import com.takutou.pl_dungeon.method.TestZombieFactory;
+import com.takutou.pl_dungeon.method.*;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -15,11 +12,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CreateDungeonMob implements CommandExecutor {
-    private MobManager mobManager;
+    private CreatedMobManager createdMobManager;
     private Map<String, MobFactory> mobFactoryMap;
 
-    public CreateDungeonMob(MobManager mobManager) {
-        this.mobManager = mobManager;
+    public CreateDungeonMob(CreatedMobManager mobManager) {
+        this.createdMobManager = mobManager;
         this.mobFactoryMap = new HashMap<>();
         // モブタイプに対応するファクトリクラスをマッピング
         mobFactoryMap.put("testzombie", new TestZombieFactory());
@@ -46,14 +43,15 @@ public class CreateDungeonMob implements CommandExecutor {
 
                 // モブタイプに対応するファクトリを取得
                 MobFactory factory = mobFactoryMap.get(mobType.toLowerCase());
+                //Error
                 if (factory == null) {
                     player.sendMessage(ChatColor.RED + "Error: Invalid mob type. Valid types are: " + mobFactoryMap.keySet());
                     return false;
                 }
 
                 // ファクトリを使ってモブを生成
-                mobManager.spawnDungeonMob(factory, mobName, speed, maxHealth, attackDamage, location);
-                player.sendMessage("Mob spawned successfully!");
+                createdMobManager.pushCreatedDungeonMob(factory, mobName, speed, maxHealth, attackDamage, location);
+                player.sendMessage("Mob created successfully!");
             } catch (NumberFormatException e) {
                 player.sendMessage("Speed, maxHealth, and attackDamage must be integers.");
                 return false;

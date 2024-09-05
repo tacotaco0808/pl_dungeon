@@ -3,10 +3,8 @@ version: '${project.version}'
 main: com.takutou.pl_dungeon.Pl_dungeon
 api-version: '1.20'
 commands:
-  spawnzombie:
-    description: ゾンビをプレイヤーの視点の先にスポーンさせる
-  givedungeonzombieegg:
-    description: ダンジョンゾンビをスポーン
+  dungeonmoblist:
+    description: /dungeonmoblist
   dungeon:
     description: /dungeon <num>
   dungeoncreate:
