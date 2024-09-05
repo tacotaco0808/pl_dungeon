@@ -85,6 +85,7 @@ public abstract class EntityObject {
         entityData.put("speed", speed);
         entityData.put("maxHealth", maxHealth);
         entityData.put("attackDamage", attackDamage);
+        entityData.put("mobType",entityType);
         return entityData;
     }
 

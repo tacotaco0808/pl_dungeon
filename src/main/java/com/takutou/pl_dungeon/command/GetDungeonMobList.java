@@ -20,12 +20,14 @@ public class GetDungeonMobList implements CommandExecutor {
             EntityObject createdMob = createdMobManager.getAllDungeonMobs().get(i);
             Map<String,Object> createdMobData =createdMob.getMonsterData();
             String mobName = (String) createdMobData.get("mobName");
+            String mobType = createdMob.getClass().getSimpleName().toLowerCase();
             int mobSpeed = (int) createdMobData.get("speed");
             int mobMaxHealth = (int) createdMobData.get("maxHealth");
             int mobAttackDamage = (int) createdMobData.get("attackDamage");
 
             sender.sendMessage(
                             ChatColor.GREEN + "----------\n" +
+                            ChatColor.GREEN + "MOBタイプ:" + mobType + "\n" +
                             ChatColor.GREEN + "名前　　:" + mobName + "\n" +
                             ChatColor.GREEN + "スピード:" + mobSpeed + "\n" +
                             ChatColor.GREEN + "体力　　:" + mobMaxHealth + "\n" +
