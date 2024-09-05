@@ -32,7 +32,7 @@ public abstract class EntityObject {
         this.maxHealth = maxHealth;
         this.attackDamage = attackDamage;
         this.plugin = plugin;
-
+        this.monsterID = UUID.randomUUID();
     }
     public void spawn(Location location){
         Monster monster = (Monster) location.getWorld().spawnEntity(location,entityType);

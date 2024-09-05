@@ -48,9 +48,9 @@ public class CreateDungeonMob implements CommandExecutor {
                     player.sendMessage(ChatColor.RED + "Error: Invalid mob type. Valid types are: " + mobFactoryMap.keySet());
                     return false;
                 }
+                // ファクトリを使ってモブを生成し、作成したmobリストにプッシュ
+                createdMobManager.pushCreatedDungeonMob(factory, mobName, speed, maxHealth, attackDamage);
 
-                // ファクトリを使ってモブを生成
-                createdMobManager.pushCreatedDungeonMob(factory, mobName, speed, maxHealth, attackDamage, location);
                 player.sendMessage("Mob created successfully!");
             } catch (NumberFormatException e) {
                 player.sendMessage("Speed, maxHealth, and attackDamage must be integers.");
