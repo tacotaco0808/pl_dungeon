@@ -33,7 +33,6 @@ public class CreateDungeonMob implements CommandExecutor {
             }
 
             Player player = (Player) sender;
-            Location location = player.getLocation();
             try {
                 String mobType = args[0];
                 String mobName = args[1];

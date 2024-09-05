@@ -1,8 +1,6 @@
 package com.takutou.pl_dungeon.listener;
 
 import com.takutou.pl_dungeon.method.CreatedMobManager;
-import com.takutou.pl_dungeon.method.JudgeAndSpawnMob;
-import com.takutou.pl_dungeon.method.MobManager;
 import com.takutou.pl_dungeon.Pl_dungeon;
 import com.takutou.pl_dungeon.mob.EntityObject;
 import org.bukkit.ChatColor;
@@ -32,10 +30,6 @@ public class InteractListener implements Listener {
     public void onInteract(PlayerInteractEvent e){
         if(e.getAction()== Action.RIGHT_CLICK_BLOCK){
             if(e.getHand() != null && e.getHand() == EquipmentSlot.HAND){
-                //手に持っているアイテムを判定
-                //ここをワイルドカードにする必要がある。現時点だとエッグ:1のものしか判定されていない
-//                JudgeAndSpawnMob zombieSpawn = new JudgeAndSpawnMob(mobManager,1,e,plugin);
-//                zombieSpawn.judgeAndSpawn();
                 //customIDでアイテムを判定
                 if(e.getItem() != null){
                     ItemStack handItem = e.getItem();
