@@ -22,6 +22,7 @@ public abstract class EntityObject {
     private UUID monsterID;
     private EntityType entityType;
     private  Location monsterSpawnLocation;
+    private String mobKey;//どの設計書か見分ける
     public static int mobCounter = 0;
 
 
@@ -76,6 +77,7 @@ public abstract class EntityObject {
     public Location getMonsterSpawnLocation(){
         return this.monsterSpawnLocation;
     }
+    public String getMobKey(){return this.mobKey;}
     public UUID getMonsterID(){
         return this.monsterID;
     }
@@ -86,6 +88,7 @@ public abstract class EntityObject {
         entityData.put("maxHealth", maxHealth);
         entityData.put("attackDamage", attackDamage);
         entityData.put("mobType",entityType);
+        entityData.put("mobKey",mobKey);
         return entityData;
     }
 
@@ -98,6 +101,9 @@ public abstract class EntityObject {
     }
     public void setMonsterSpawnLocation(Location monsterSpawnLocation) {
         this.monsterSpawnLocation = monsterSpawnLocation;
+    }
+    public void setMobKey(String key){
+        this.mobKey = key;
     }
     public void setSpeed(Monster monster, int speed) {
         if (monster.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED) != null) {

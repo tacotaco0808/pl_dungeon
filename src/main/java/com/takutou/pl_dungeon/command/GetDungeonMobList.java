@@ -24,7 +24,7 @@ public class GetDungeonMobList implements CommandExecutor {
             int mobSpeed = (int) createdMobData.get("speed");
             int mobMaxHealth = (int) createdMobData.get("maxHealth");
             int mobAttackDamage = (int) createdMobData.get("attackDamage");
-
+            String mobKey = (String) createdMobData.get("mobKey");
             sender.sendMessage(
                             ChatColor.GREEN + "----------\n" +
                             ChatColor.GREEN + "MOBタイプ:" + mobType + "\n" +
@@ -32,6 +32,7 @@ public class GetDungeonMobList implements CommandExecutor {
                             ChatColor.GREEN + "スピード:" + mobSpeed + "\n" +
                             ChatColor.GREEN + "体力　　:" + mobMaxHealth + "\n" +
                             ChatColor.GREEN + "攻撃力　:" + mobAttackDamage + "\n" +
+                            ChatColor.GREEN + "mobKey:" + mobKey + "\n" +
                             ChatColor.GREEN + "----------" + "\n"
             );
         }

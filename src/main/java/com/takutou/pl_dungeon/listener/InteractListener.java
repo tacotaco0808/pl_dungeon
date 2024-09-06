@@ -51,6 +51,12 @@ public class InteractListener implements Listener {
                             //リストのn番目のモンスターをスポーン
                             EntityObject spawnedMob = createdMobManager.getAllDungeonMobs().get(monsterIndex);
                             spawnedMob.spawn(spawnLocation);
+                            /*mobs.ymlに
+                                UUID:
+                                    mobKey:
+                                    location:
+                                で保存
+                            }*/
                             player.sendMessage(createdMobManager.getAllDungeonMobs().toString());
                             /*スポーンメッセージを表示*/
                             Map<String,Object> spawnedMobData = spawnedMob.getMonsterData();
@@ -59,7 +65,7 @@ public class InteractListener implements Listener {
                             int mobSpeed = (int) spawnedMobData.get("speed");
                             int mobMaxHealth = (int) spawnedMobData.get("maxHealth");
                             int mobAttackDamage = (int) spawnedMobData.get("attackDamage");
-
+                            String mobKey = (String) spawnedMobData.get("mobKey");
 
                             e.getPlayer().sendMessage(
                             ChatColor.GREEN + "customID-" + customID + "のモンスターをスポーンしました\n" +
@@ -69,6 +75,7 @@ public class InteractListener implements Listener {
                                 ChatColor.GREEN + "スピード:" + mobSpeed + "\n" +
                                 ChatColor.GREEN + "体力　　:" + mobMaxHealth + "\n" +
                                 ChatColor.GREEN + "攻撃力　:" + mobAttackDamage + "\n" +
+                                ChatColor.GREEN + "key　:" + mobKey + "\n" +
                                 ChatColor.GREEN + "----------"
                             );
 

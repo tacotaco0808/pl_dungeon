@@ -45,13 +45,16 @@ public class CreatedMobManager {
     }
     //リストに作成したモブをプッシュ
     public void pushCreatedDungeonMob(MobFactory factory, String mobName, int speed, int maxHealth, int attackDamage){
+        String mobKey = generateUniqueKey();
         EntityObject mob = factory.createMob(mobName,speed,maxHealth,attackDamage,plugin);
+        mob.setMobKey(mobKey);
         createdDungeonMobs.add(mob);//リストに追加
-        this.saveMobData(mob,generateUniqueKey());//ファイルに保存
+        this.saveMobData(mob);//ファイルに保存
+
     }
     /*file loading*/
-    private void saveMobData(EntityObject mob,String mobKey) {
-        String path = "mobs." + mobKey;
+    private void saveMobData(EntityObject mob) {
+        String path = "mobs." + mob.getMobKey();
         mobDataConfig.set(path + ".type", mob.getClass().getSimpleName().toLowerCase());
         mobDataConfig.set(path + ".name", mob.getMobName());
         mobDataConfig.set(path + ".speed", mob.getSpeed());
@@ -81,6 +84,7 @@ public class CreatedMobManager {
                 // ファクトリが存在する場合のみモブを生成
                 if (factory != null) {
                     EntityObject mob = factory.createMob(mobName, speed, maxHealth, attackDamage, plugin);
+                    mob.setMobKey(key);//mobKeyをセット
                     // リストに追加 (この時点で saveMobData は呼び出さない)
                     createdDungeonMobs.add(mob);
                 }
