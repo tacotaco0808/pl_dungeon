@@ -95,5 +95,14 @@ public class CreatedMobManager {
     public List<EntityObject> getAllDungeonMobs() {
         return createdDungeonMobs;
     }
+    // 指定のmobKeyを持つEntityObjectを検索
+    public EntityObject getMobByKey(String mobKey) {
+        for (EntityObject mob : createdDungeonMobs) {
+            if (mob.getMobKey().equals(mobKey)) {
+                return mob; // 見つけたら返す
+            }
+        }
+        return null; // 見つからなかった場合はnullを返す
+    }
 
 }

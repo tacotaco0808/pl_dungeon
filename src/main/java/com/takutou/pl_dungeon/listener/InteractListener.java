@@ -54,36 +54,9 @@ public class InteractListener implements Listener {
                             //リストのn番目のモンスターをスポーン
                             EntityObject spawnedMob = createdMobManager.getAllDungeonMobs().get(monsterIndex);
                             spawnedMob.spawn(spawnLocation);
-                            /*mobs.ymlに
-                                UUID:
-                                    mobKey:
-                                    location:
-                                で保存
-                            }*/
+                            //スポーンしたmobのデータを保存
                             spawnedMobManager.pushSpawnedDungeonMobs(spawnedMob);
-                            for(int i=0;i<spawnedMobManager.getAllDungeonMobs().size();i++){//デバッグ用
-                                EntityObject spawnedEntity = spawnedMobManager.getAllDungeonMobs().get(i);
-                                Map<String,Object> createdMobData =spawnedEntity.getMonsterData();
-                                String mobName = (String) createdMobData.get("mobName");
-                                String mobType = spawnedMob.getClass().getSimpleName().toLowerCase();
-                                int mobSpeed = (int) createdMobData.get("speed");
-                                int mobMaxHealth = (int) createdMobData.get("maxHealth");
-                                int mobAttackDamage = (int) createdMobData.get("attackDamage");
-                                String mobKey = (String) createdMobData.get("mobKey");
-                                Location location = spawnedEntity.getMonsterSpawnLocation();
-                                player.sendMessage(
-                                        ChatColor.GREEN + "----------\n" +
-                                                ChatColor.GREEN + "MOBタイプ:" + mobType + "\n" +
-                                                ChatColor.GREEN + "名前　　:" + mobName + "\n" +
-                                                ChatColor.GREEN + "スピード:" + mobSpeed + "\n" +
-                                                ChatColor.GREEN + "体力　　:" + mobMaxHealth + "\n" +
-                                                ChatColor.GREEN + "攻撃力　:" + mobAttackDamage + "\n" +
-                                                ChatColor.GREEN + "mobKey:" + mobKey + "\n" +
-                                                ChatColor.GREEN + "座標:" + location.getX() +"|" + location.getY() +"|"+
-                                                location.getZ() + "\n" +
-                                                ChatColor.GREEN + "----------" + "\n"
-                                );
-                            }
+
                             player.sendMessage(createdMobManager.getAllDungeonMobs().toString());
                             /*スポーンメッセージを表示*/
                             Map<String,Object> spawnedMobData = spawnedMob.getMonsterData();

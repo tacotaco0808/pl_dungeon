@@ -12,13 +12,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Pl_dungeon extends JavaPlugin {
     private MobManager mobManager;
-    private CreatedMobManager createdMobManager;
-    private SpawnedMobManager spawnedMobManager;
+    private CreatedMobManager createdMobManager;/*設計図をリストに保存*/
+    private SpawnedMobManager spawnedMobManager;/*設計図を基にスポーンしたモンスターを保存*/
     @Override
     public void onEnable() {
         mobManager = new MobManager(this);
         createdMobManager = new CreatedMobManager(this);
-        spawnedMobManager = new SpawnedMobManager(this);
+        spawnedMobManager = new SpawnedMobManager(createdMobManager,this);
         // Plugin startup logic
         // コマンドエクゼキューターの登録
         this.getCommand("dungeon").setExecutor(new DungeonEntitySpawnEgg(this));
