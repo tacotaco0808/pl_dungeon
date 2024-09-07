@@ -2,6 +2,7 @@ package com.takutou.pl_dungeon.listener;
 
 import com.takutou.pl_dungeon.method.CreatedMobManager;
 import com.takutou.pl_dungeon.Pl_dungeon;
+import com.takutou.pl_dungeon.method.SpawnedMobManager;
 import com.takutou.pl_dungeon.mob.EntityObject;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -21,8 +22,10 @@ import java.util.Map;
 public class InteractListener implements Listener {
     private final Pl_dungeon plugin;
     private CreatedMobManager createdMobManager;
-    public InteractListener(CreatedMobManager createdMobManager, Pl_dungeon plugin){
+    private SpawnedMobManager spawnedMobManager;
+    public InteractListener(CreatedMobManager createdMobManager, SpawnedMobManager spawnedMobManager, Pl_dungeon plugin){
         this.createdMobManager = createdMobManager;
+        this.spawnedMobManager = spawnedMobManager;
         this.plugin = plugin;
     }
 
@@ -57,6 +60,30 @@ public class InteractListener implements Listener {
                                     location:
                                 で保存
                             }*/
+                            spawnedMobManager.pushSpawnedDungeonMobs(spawnedMob);
+                            for(int i=0;i<spawnedMobManager.getAllDungeonMobs().size();i++){//デバッグ用
+                                EntityObject spawnedEntity = spawnedMobManager.getAllDungeonMobs().get(i);
+                                Map<String,Object> createdMobData =spawnedEntity.getMonsterData();
+                                String mobName = (String) createdMobData.get("mobName");
+                                String mobType = spawnedMob.getClass().getSimpleName().toLowerCase();
+                                int mobSpeed = (int) createdMobData.get("speed");
+                                int mobMaxHealth = (int) createdMobData.get("maxHealth");
+                                int mobAttackDamage = (int) createdMobData.get("attackDamage");
+                                String mobKey = (String) createdMobData.get("mobKey");
+                                Location location = spawnedEntity.getMonsterSpawnLocation();
+                                player.sendMessage(
+                                        ChatColor.GREEN + "----------\n" +
+                                                ChatColor.GREEN + "MOBタイプ:" + mobType + "\n" +
+                                                ChatColor.GREEN + "名前　　:" + mobName + "\n" +
+                                                ChatColor.GREEN + "スピード:" + mobSpeed + "\n" +
+                                                ChatColor.GREEN + "体力　　:" + mobMaxHealth + "\n" +
+                                                ChatColor.GREEN + "攻撃力　:" + mobAttackDamage + "\n" +
+                                                ChatColor.GREEN + "mobKey:" + mobKey + "\n" +
+                                                ChatColor.GREEN + "座標:" + location.getX() +"|" + location.getY() +"|"+
+                                                location.getZ() + "\n" +
+                                                ChatColor.GREEN + "----------" + "\n"
+                                );
+                            }
                             player.sendMessage(createdMobManager.getAllDungeonMobs().toString());
                             /*スポーンメッセージを表示*/
                             Map<String,Object> spawnedMobData = spawnedMob.getMonsterData();
