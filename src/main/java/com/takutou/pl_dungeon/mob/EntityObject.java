@@ -47,9 +47,7 @@ public abstract class EntityObject {
         //プラグインで作成したモンスターであることを提示
         String MY_PLUGIN_MOB = "spawned_by_dungeonpl";
         monster.setMetadata(MY_PLUGIN_MOB,new FixedMetadataValue(plugin,true));
-        //UUIDとスポーン位置を保存
-        monsterID = monster.getUniqueId();
-        monsterSpawnLocation = location;
+
 
         EntityObject.mobCounter++;
 
