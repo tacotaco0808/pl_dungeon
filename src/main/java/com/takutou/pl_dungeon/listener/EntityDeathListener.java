@@ -1,8 +1,7 @@
 package com.takutou.pl_dungeon.listener;
 
 import com.takutou.pl_dungeon.Pl_dungeon;
-import com.takutou.pl_dungeon.method.CreatedMobManager;
-import com.takutou.pl_dungeon.method.MobManager;
+import com.takutou.pl_dungeon.method.SpawnedMobManager;
 import com.takutou.pl_dungeon.mob.EntityObject;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
@@ -19,9 +18,9 @@ public class EntityDeathListener implements Listener {
     }
     private final String MY_PLUGIN_MOB = "spawned_by_dungeonpl";
     private final String RESPAWN_ZOMBIE = "respawn_mob";
-    private CreatedMobManager createdMobManager;
-    public EntityDeathListener(CreatedMobManager createdMobManager, Pl_dungeon plugin) {
-        this.createdMobManager = createdMobManager;
+    private SpawnedMobManager spawnedMobManager;
+    public EntityDeathListener(SpawnedMobManager spawnedMobManager, Pl_dungeon plugin) {
+        this.spawnedMobManager = spawnedMobManager;
         this.plugin = plugin;
     }
     @EventHandler
@@ -40,14 +39,17 @@ public class EntityDeathListener implements Listener {
                 EntityObject.mobCounter--;
             }
             if(monster.hasMetadata(MY_PLUGIN_MOB) && monster.hasMetadata(RESPAWN_ZOMBIE)){
-//                UUID monsterID = monster.getUniqueId();
-//                EntityObject dungeonMonster= createdMobManager.getDungeonMob(monsterID);
+                //モンスター情報を取得
+                UUID monsterID = monster.getUniqueId();
+                EntityObject dungeonMonster= spawnedMobManager.getMobById(monsterID);
                 e.getDrops().clear();
                 e.setDroppedExp(0);
                 Player killer = monster.getKiller();
                 if(killer != null ){
                     killer.sendMessage("killed respawn zombie!!");
-//                    dungeonMonster.spawn(dungeonMonster.getMonsterSpawnLocation());
+                    dungeonMonster.spawn(dungeonMonster.getMonsterSpawnLocation());
+                    spawnedMobManager.removeDungeonMobById(monsterID);//古いモンスターを削除
+                    spawnedMobManager.pushSpawnedDungeonMobs(dungeonMonster);//新しいモンスターをプッシュ
 
                 }
                 EntityObject.mobCounter--;

@@ -26,7 +26,7 @@ public final class Pl_dungeon extends JavaPlugin {
         this.getCommand("dungeonmoblist").setExecutor(new GetDungeonMobList(createdMobManager));
         // イベントリスナーの登録
         getServer().getPluginManager().registerEvents(new InteractListener(createdMobManager,spawnedMobManager,this),this);
-        getServer().getPluginManager().registerEvents(new EntityDeathListener(createdMobManager,this),this);
+        getServer().getPluginManager().registerEvents(new EntityDeathListener(spawnedMobManager,this),this);
 
     }
 

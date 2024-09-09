@@ -69,4 +69,22 @@ public class SpawnedMobManager {
     public List<EntityObject> getAllDungeonMobs() {
         return spawnedDungeonMobs;
     }
+    // 指定のUUIDを持つEntityObjectを検索
+    public EntityObject getMobById(UUID monsterId) {
+        for (EntityObject mob : spawnedDungeonMobs) {
+            if (mob.getMonsterID().equals(monsterId)) {
+                return mob; // 見つけたら返す
+            }
+        }
+        return null; // 見つからなかった場合はnullを返す
+    }
+    public void removeDungeonMobById(UUID mobID) {
+        spawnedDungeonMobs.removeIf(mob -> mob.getMonsterID().equals(mobID));
+        mobDataConfig.set("mobs." + mobID.toString(), null);
+        try {
+            mobDataConfig.save(mobDataFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

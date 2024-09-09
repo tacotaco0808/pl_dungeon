@@ -1,15 +1,11 @@
+com\takutou\pl_dungeon\method\SpawnedMobManager.class
 com\takutou\pl_dungeon\listener\InteractListener.class
 com\takutou\pl_dungeon\mob\DungeonZombie.class
 com\takutou\pl_dungeon\listener\EntityDeathListener.class
-com\takutou\pl_dungeon\SpawnEntity.class
 com\takutou\pl_dungeon\mob\TestZombie.class
 com\takutou\pl_dungeon\Pl_dungeon.class
-com\takutou\pl_dungeon\method\JudgeAndSpawnMob.class
 com\takutou\pl_dungeon\mob\EntityObject.class
-com\takutou\pl_dungeon\command\DungeonZombieSpawnEgg.class
 com\takutou\pl_dungeon\command\DungeonEntitySpawnEgg.class
 com\takutou\pl_dungeon\method\MobManager.class
 com\takutou\pl_dungeon\command\CreateDungeonMob.class
-com\takutou\pl_dungeon\SpawnEntity$2.class
 com\takutou\pl_dungeon\method\CustomItem.class
-com\takutou\pl_dungeon\SpawnEntity$1.class
